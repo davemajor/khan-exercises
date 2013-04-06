@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html data-require="math graphie graphie-helpers d3">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Vertex of a parabola</title>
+    <script src="../khan-exercise.js"></script>
+    <script type="text/javascript">
+        function crypt(input, key) {
+        var output = "";
+            for (var i = 0; i < input.length; i++) {
+                var c = input.charCodeAt(i);
+                if      (c >= 65 && c <=  90) output += String.fromCharCode((c - 65 + key) % 26 + 65);  // Uppercase
+                    else if (c >= 97 && c <= 122) output += String.fromCharCode((c - 97 + key) % 26 + 97);  // Lowercase
+                    else                          output += input.charAt(i);  // Copy
+                }
+            return output;
+        }
+    </script>
+</head>
+<body>
+<div class="exercise">
+    <div class="problems">
+        <div id="standard-form">
+
+            <div class="vars">
+                <var id="MESSAGE">"This is a test message"</var>
+                <var id="SHIFT">randRange(1, 25)</var>
+                <var id="CIPHER">crypt(MESSAGE,SHIFT)</var>
+                <var id="ALPHABET">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</var>
+
+                <var id="DATA">
+                    (function() {
+                        var values = $.map( ALPHABET, function( letter, i ) {
+                            var match = CIPHER.match(new RegExp(letter,"gi"));
+                            return match? match.length : 0;
+                        });
+                        var ordinals = $.map( ALPHABET, function( letter, i ) {
+                            return letter.charAt( 0 );
+                        });
+                        return { min: 0,
+                            max: Math.max.apply(Math, values),
+                            tickCount: 5,
+                            values: values,
+                            ordinals: ordinals,
+                            color:KhanUtil.BLUE };
+                    })()
+        </var>
+            </div>
+
+            <div class="problem">
+                You have intercepted the following message:
+                <p><var>CIPHER</var></p>
+            </div>
+
+            <div class="question">
+                What shift was applied?
+                <div class="graphie" id="barchart">
+                    var width = 10;
+                    var height = 5;
+                    init({
+                        range: [ [ -1, width + 1 ], [ -1, height + 0.5 ] ]
+                    });
+
+                    var pos = { lx: 0, ly: 0, width: width, height: height};
+                    graph.barchart = new BarChart( DATA, pos );
+                    graph.barchart.draw();
+                </div>
+            </div>
+
+            <div class="solution" data-type="text">
+                <var>SHIFT</var>
+
+                <div class="example">
+                    An integer between 1 and 25.
+                </div>
+            </div>
+
+            <div class="hints">
+                <div>
+                    <p>
+                        Rearranging the function into 'vertex form' exposes the vertex as <code>(\green{h},\blue{k})</code>.
+                        We can do this by completing the square.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
