@@ -32,21 +32,21 @@
     <body>
         <div class="exercise">
             <div class="vars">
-                <var id="FRACTIONS">randRange(1,30,4,2)</var>
+                <var id="FRACTIONS">randRange(1, 30, 4, 2)</var>
                 <var id="ANSWER1">randFromArray(FRACTIONS)</var>
-                <var id="MULTIPLIER">randRangeNonZero(2,4)</var>
-                <var id="ANSWER2">[[ANSWER1[0]*MULTIPLIER,ANSWER1[1]*MULTIPLIER]]</var>
+                <var id="MULTIPLIER">randRange(2, 4)</var>
+                <var id="ANSWER2">[[ANSWER1[0] * MULTIPLIER, ANSWER1[1] * MULTIPLIER]]</var>
                 <var id="OPTIONSINC">shuffle(FRACTIONS.concat(ANSWER2))</var>
                 <var id="OPTIONS">shuffle(FRACTIONS)</var>
             </div>
             <div class="problems">
                 <div id="pair">
-                    <p class="question">Find the pair of equivalent fractions below</p>
-                    <div class="problem">   
+                    <p class="question">Find the pair of equivalent fractions below:</p>
+                    <div class="problem">
                         <ul id="list" class="ui-helper-clearfix">
                             <li data-each="OPTIONSINC as OPTION" style="float:left; padding-top:20px; padding-left: 20px">
-                                 <input type="checkbox" id="check" />
-                                 <label class="buttonLabel" for="check">
+                                <input type="checkbox" id="check">
+                                <label class="buttonLabel" for="check">
                                     <code><var>fraction(OPTION[0],OPTION[1])</var></code>
                                 </label>
                             </li>
@@ -64,11 +64,11 @@
                             if (guess.length &lt; 2 || guess.length &gt; 2 ) {
                                 return "";
                             }
-                            return guess[0][0]/guess[0][1] === guess[1][0]/guess[1][1];
+                            return abs(guess[0][0] / guess[0][1] - guess[1][0] / guess[1][1]) &lt; pow(2, -42);
                         </div>
                         <div class="show-guess">
-                            $('#option'+arrayInArray([guess[0][0],guess[0][1]],OPTIONSINC)).prop('checked',true).next().addClass('ui-state-active');
-                            $('#option'+arrayInArray([guess[1][0],guess[1][1]],OPTIONSINC)).prop('checked',true).next().addClass('ui-state-active');
+                            $('#option' + arrayInArray([guess[0][0], guess[0][1]], OPTIONSINC)).prop('checked',true).next().addClass('ui-state-active');
+                            $('#option' + arrayInArray([guess[1][0], guess[1][1]], OPTIONSINC)).prop('checked',true).next().addClass('ui-state-active');
                         </div>
                     </div>
                     <div class="hints">
