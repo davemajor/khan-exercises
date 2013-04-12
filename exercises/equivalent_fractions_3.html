@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-require="math math-format interactive graphie">
+<html data-require="math math-format">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Equivalent Fractions 3</title>
@@ -76,14 +76,15 @@
                             })
                         </div>
                         <div class="validator-function">
-                            if (guess.length &lt; 2 || guess.length &gt; 2 ) {
+                            if (guess.length !== 2) {
                                 return "";
                             }
                             return abs(guess[0][0] / guess[0][1] - guess[1][0] / guess[1][1]) &lt; pow(2, -42);
                         </div>
                         <div class="show-guess">
-                            $('#check' + arrayInArray([guess[0][0], guess[0][1]], OPTIONSINC)).prop('checked',true);
-                            $('#check' + arrayInArray([guess[1][0], guess[1][1]], OPTIONSINC)).prop('checked',true);
+                            $('input[type="checkbox"]').prop('checked',false);
+                            $('#check' + _.indexOf(_.map(OPTIONSINC, JSON.stringify), JSON.stringify(guess[0]))).prop('checked',true);
+                            $('#check' + _.indexOf(_.map(OPTIONSINC, JSON.stringify), JSON.stringify(guess[1]))).prop('checked',true);
                         </div>
                     </div>
                     <div class="hints">
@@ -156,7 +157,8 @@
                             return abs(guess[0][0] / guess[0][1] - ANSWER1[0] / ANSWER1[1]) &lt; pow(2, -42);
                         </div>
                         <div class="show-guess">
-                            $('#check' + arrayInArray([guess[0][0], guess[0][1]], OPTIONSINC)).prop('checked', true);
+                            $('input[type="checkbox"]').prop('checked',false);
+                            $('#check' + _.indexOf(_.map(OPTIONSINC, JSON.stringify), JSON.stringify(guess[0]))).prop('checked',true);
                         </div>
                     </div>
                     <div class="hints">
@@ -172,7 +174,12 @@
                                 </li>
                             </ul>
                         </div>
-                        <p style="clear:both; padding-top:20px">Identify the fraction which match.</p>
+                        <p style="clear:both; padding-top:20px">Identify the fraction which matches.</p>
+                        <p>
+                            <code><var>fraction(ANSWER2[0][0],ANSWER2[0][1])</var> =
+                                <var>fraction(ANSWER1[0],ANSWER1[1])</var>
+                            </code>
+                        </p>
                     </div>
                 </div>
             </div>
